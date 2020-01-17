@@ -13,7 +13,7 @@ Here is the [Splitwise API](https://dev.splitwise.com/#introduction).
 ## Pipeline
 * `Travis` tests the repo using `npm test`, which runs `mocha 'tests/**/*.js' --exit`
 * Once the tests pass, `Heroku` deploys the app.
-* When the app is deployed, you can make requests to it [here](https://home-dashboard-splitwise-manager.herokuapp.com/).
+* When the app is deployed, you can make requests to it [here](https://home-dashboard-splitwise-mngr.herokuapp.com/).
 
 ## Endpoints
 
