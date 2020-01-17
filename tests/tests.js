@@ -32,9 +32,9 @@ describe('/ tests', () => {
             });
     });
 
-    it('/ with group id gives 200', (done) => {
+    it('/group gives 200', (done) => {
         request(server)
-            .get(`/?groupId=${groupId}`)
+            .get(`/group?groupId=${groupId}`)
             .expect(200)
             .end((err, response) => {
                 if (err) {
@@ -43,12 +43,19 @@ describe('/ tests', () => {
                 }
 
                 assert.notEqual(response.body, null);
+                assert.notEqual(response.body.who, null);
 
                 return done();
             });
     });
 
-    it('/ gives 502 when using an incorrect group id', (done) => {
+    it('/group gives 400 when no parameters specified', (done) => {
+        request(server)
+            .get('/group')
+            .expect(400, done);
+    });
+
+    it('/group gives 502 when using an incorrect group id', (done) => {
         request(server)
             .get('/?groupId=123456789')
             .expect(502, done);
