@@ -19,8 +19,6 @@ const sw = Splitwise({
     consumerSecret: process.env.CONSUMER_SECRET,
 });
 
-// sw.getGroup({ id: groupId }).then(console.log);
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/group', groupRoutes);

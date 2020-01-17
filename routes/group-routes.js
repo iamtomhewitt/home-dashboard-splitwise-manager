@@ -1,4 +1,5 @@
 const express = require('express');
+const Splitwise = require('splitwise');
 require('dotenv').config();
 
 const router = express.Router();
@@ -12,10 +13,10 @@ const sw = Splitwise({
     consumerSecret: process.env.CONSUMER_SECRET,
 });
 
-function success(message) {
+function success(expenses) {
     return {
         status: successCode,
-        message,
+        expenses,
     };
 }
 
@@ -34,8 +35,28 @@ function error(message) {
 }
 
 router.get('/', (req, res) => {
-	const {groupId} = req.query;
-	
+    const { groupId } = req.query;
+
+    sw.getGroup({ id: groupId }).then((response) => {
+        const members = response.members;
+        const debts = response.simplified_debts;
+        const expenses = [];
+
+        debts.forEach((debt) => {
+            const who = members.find((x) => x.id === debt.from).first_name;
+            const owes = members.find((x) => x.id === debt.to).first_name;
+            const amount = `£${debt.amount}`;
+
+            expenses.push({ who, owes, amount });
+        });
+
+
+        res.status(successCode).send({
+            groupName: response.name,
+            lastUpdated: response.updated_at,
+            expenses,
+        });
+    });
 });
 
 module.exports = router;

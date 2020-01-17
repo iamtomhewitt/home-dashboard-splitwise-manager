@@ -43,7 +43,9 @@ describe('/ tests', () => {
                 }
 
                 assert.notEqual(response.body, null);
-                assert.notEqual(response.body.who, null);
+                assert.notEqual(response.body.groupName, null);
+                assert.notEqual(response.body.lastUpdated, null);
+                assert.notEqual(response.body.expenses, null);
 
                 return done();
             });
