@@ -4,7 +4,9 @@
   "description": "A small Node Express app for getting the \"I owe you\"'s to display on my home dashboard.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "eslint --ignore-path .gitignore .",
+    "lint": "npm run pretest -- --fix",
+    "test": "mocha 'tests/**/*.js' --exit"
   },
   "repository": {
     "type": "git",
@@ -27,5 +29,13 @@
   },
   "engines": {
     "node": "8.16.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^1.7.0"
   }
 }
