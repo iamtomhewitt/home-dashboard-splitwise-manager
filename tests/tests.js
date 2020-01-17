@@ -59,7 +59,7 @@ describe('/ tests', () => {
 
     it('/group gives 502 when using an incorrect group id', (done) => {
         request(server)
-            .get('/?groupId=123456789')
+            .get('/group?groupId=12345678910')
             .expect(502, done);
     });
 });

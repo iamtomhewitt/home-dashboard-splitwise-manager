@@ -13,13 +13,6 @@ const sw = Splitwise({
     consumerSecret: process.env.CONSUMER_SECRET,
 });
 
-function success(expenses) {
-    return {
-        status: successCode,
-        expenses,
-    };
-}
-
 function clientError(message) {
     return {
         status: clientErrorCode,
@@ -55,12 +48,13 @@ router.get('/', (req, res) => {
             expenses.push({ who, owes, amount });
         });
 
-
         res.status(successCode).send({
             groupName: response.name,
             lastUpdated: response.updated_at,
             expenses,
         });
+    }).catch((err) => {
+        res.status(errorCode).send(error(`Using group ID: ${groupId} gave following error: ${err.message}`));
     });
 });
 
