@@ -18,7 +18,7 @@ Here is the [Splitwise API](https://dev.splitwise.com/#introduction).
 ## Endpoints
 
 ### `/ (GET)`
-The root endpoint, returning information about the app.
+* The root endpoint, returning information about the app.
 
 #### Responses
 * `200` success
@@ -28,11 +28,57 @@ The root endpoint, returning information about the app.
     "version": "1.0.0",
     "endpoints": [
         {
+            "path": "/group",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
             "path": "/",
             "methods": [
                 "GET"
             ]
         }
     ]
+}
+```
+
+### `/group (GET)`
+* Gets the information about a splitwise group.
+* Query parameters:
+	* `groupId=<group>`
+
+#### Responses
+* `200` success
+```json
+{
+    "groupName": "Group Name",
+    "lastUpdated": "2020-01-17T09:00:00Z",
+    "expenses": [
+        {
+            "who": "Jimmy",
+            "owes": "Tom",
+            "amount": "£10"
+        },
+        {
+            "who": "Sarah",
+            "owes": "Bob",
+            "amount": "£2.50"
+        }
+    ]
+}
+```
+* `400` bad request if no group id specified
+```json
+{
+    "status": 400,
+    "message": "Group ID missing from query"
+}
+```
+* `502` if Splitwise could not get the group
+```json
+{
+    "status": 502,
+    "message": "Using group ID: 12345 gave following error: <error message>"
 }
 ```
