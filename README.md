@@ -1,7 +1,7 @@
 <h1 align="center">Home Dashboard Splitwise Manager </h1>
 <p align="center">
     <img src="https://travis-ci.org/iamtomhewitt/home-dashboard-splitwise-manager.svg"/>
-    <img src="https://heroku-badge.herokuapp.com/?app=home-dashboard-splitwise-manager&style=round&svg=1"/>
+    <img src="https://heroku-badge.herokuapp.com/?app=home-dashboard-splitwise-mngr&style=round&svg=1"/>
 </p>
 <p align="center">
     💰 A small Node Express app for getting the "I owe you"'s to display on my home dashboard.
