@@ -37,6 +37,11 @@ function error(message) {
 router.get('/', (req, res) => {
     const { groupId } = req.query;
 
+    if (!groupId) {
+        res.status(clientErrorCode).send(clientError('Group ID missing from query'));
+        return;
+    }
+
     sw.getGroup({ id: groupId }).then((response) => {
         const members = response.members;
         const debts = response.simplified_debts;
