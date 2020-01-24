@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
         debts.forEach((debt) => {
             const who = members.find((x) => x.id === debt.from).first_name;
             const owes = members.find((x) => x.id === debt.to).first_name;
-            const amount = `£${debt.amount}`;
+            const amount = `£${parseFloat(debt.amount).toFixed(2)}`;
 
             expenses.push({ who, owes, amount });
         });
