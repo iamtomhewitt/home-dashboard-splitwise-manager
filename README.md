@@ -75,10 +75,10 @@ Here is the [Splitwise API](https://dev.splitwise.com/#introduction).
     "message": "Group ID missing from query"
 }
 ```
-* `502` if Splitwise could not get the group
+* `500` if Splitwise could not get the group
 ```json
 {
-    "status": 502,
+    "status": 500,
     "message": "Using group ID: 12345 gave following error: <error message>"
 }
 ```
