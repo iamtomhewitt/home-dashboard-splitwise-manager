@@ -4,25 +4,25 @@ require('dotenv').config();
 
 const router = express.Router();
 
-const successCode = 200;
-const clientErrorCode = 400;
-const errorCode = 502;
+const success = 200;
+const badRequest = 400;
+const serverError = 500;
 
 const sw = Splitwise({
     consumerKey: process.env.CONSUMER_KEY,
     consumerSecret: process.env.CONSUMER_SECRET,
 });
 
-function clientError(message) {
+function badRequestResponse(message) {
     return {
-        status: clientErrorCode,
+        status: badRequest,
         message,
     };
 }
 
-function error(message) {
+function errorResponse(message) {
     return {
-        status: errorCode,
+        status: serverError,
         message,
     };
 }
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     const { groupId } = req.query;
 
     if (!groupId) {
-        res.status(clientErrorCode).send(clientError('Group ID missing from query'));
+        res.status(badRequest).send(badRequestResponse('Group ID missing from query'));
         return;
     }
 
@@ -48,13 +48,13 @@ router.get('/', (req, res) => {
             expenses.push({ who, owes, amount });
         });
 
-        res.status(successCode).send({
+        res.status(success).send({
             groupName: response.name,
             lastUpdated: response.updated_at,
             expenses,
         });
     }).catch((err) => {
-        res.status(errorCode).send(error(`Using group ID: ${groupId} gave following error: ${err.message}`));
+        res.status(serverError).send(errorResponse(`Using group ID: ${groupId} gave following error: ${err.message}`));
     });
 });
 
