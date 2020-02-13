@@ -25,7 +25,7 @@ Here is the [Splitwise API](https://dev.splitwise.com/#introduction).
 ```json
 {
     "status": "💰 SERVER OK",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "endpoints": [
         {
             "path": "/group",
@@ -47,6 +47,7 @@ Here is the [Splitwise API](https://dev.splitwise.com/#introduction).
 * Gets the information about a splitwise group.
 * Query parameters:
 	* `groupId=<group>`
+	* `apiKey=<key>`
 
 #### Responses
 * `200` success
@@ -73,6 +74,20 @@ Here is the [Splitwise API](https://dev.splitwise.com/#introduction).
 {
     "status": 400,
     "message": "Group ID missing from query"
+}
+```
+* `400` bad request if no api key specified
+```json
+{
+    "status": 400,
+    "message": "No API key specified"
+}
+```
+* `401` unauthorised if api key is incorrect
+```json
+{
+    "status": 401,
+    "message": "API key is incorrect"
 }
 ```
 * `500` if Splitwise could not get the group
