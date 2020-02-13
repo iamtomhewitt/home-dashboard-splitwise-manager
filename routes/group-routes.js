@@ -6,6 +6,7 @@ const router = express.Router();
 
 const success = 200;
 const badRequest = 400;
+const unauthorised = 401;
 const serverError = 500;
 
 const sw = Splitwise({
@@ -27,8 +28,40 @@ function errorResponse(message) {
     };
 }
 
+function unauthorisedResponse(message) {
+    return {
+        status: unauthorised,
+        message,
+    };
+}
+
+function checkApiKey(apiKey) {
+    if (!apiKey) {
+        return {
+            response: badRequestResponse('No API key specified'),
+            code: badRequest,
+        };
+    }
+
+    if (apiKey !== process.env.API_KEY) {
+        return {
+            response: unauthorisedResponse('API key is incorrect'),
+            code: unauthorised,
+        };
+    }
+
+    return null;
+}
+
 router.get('/', (req, res) => {
     const { groupId } = req.query;
+    const { apiKey } = req.query;
+
+    const failedCheck = checkApiKey(apiKey);
+    if (failedCheck) {
+        res.status(failedCheck.code).send(failedCheck.response);
+        return;
+    }
 
     if (!groupId) {
         res.status(badRequest).send(badRequestResponse('Group ID missing from query'));
