@@ -34,7 +34,7 @@ describe('/ tests', () => {
 
     it('/group gives 200', (done) => {
         request(server)
-            .get(`/group?groupId=${groupId}`)
+            .get(`/group?groupId=${groupId}&apiKey=${process.env.API_KEY}`)
             .expect(200)
             .end((err, response) => {
                 if (err) {
@@ -57,9 +57,15 @@ describe('/ tests', () => {
             .expect(400, done);
     });
 
+    it('/group gives 401 when api key is incorrect', (done) => {
+        request(server)
+            .get('/group?apiKey=incorrect')
+            .expect(401, done);
+    });
+
     it('/group gives 500 when using an incorrect group id', (done) => {
         request(server)
-            .get('/group?groupId=12345678910')
+            .get(`/group?groupId=12345678910&apiKey=${process.env.API_KEY}`)
             .expect(500, done);
     });
 });
