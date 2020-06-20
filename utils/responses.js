@@ -1,23 +1,24 @@
+const { BAD_REQUEST, SERVER_ERROR, UNAUTHORISED } = require('./responseCodes');
+
 module.exports = {
   badRequest(message) {
     return {
-      code: 400,
+      code: BAD_REQUEST,
       message,
     };
   },
 
   error(message) {
     return {
-      code: 500,
+      code: SERVER_ERROR,
       message,
     };
   },
 
   unauthorised(message) {
     return {
-      code: 401,
+      code: UNAUTHORISED,
       message,
     };
   },
-
 };

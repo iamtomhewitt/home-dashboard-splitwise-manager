@@ -2,6 +2,7 @@ const express = require('express');
 const Splitwise = require('splitwise');
 const { badRequest, error } = require('../utils/responses');
 const { checkApiKey } = require('../utils/utils');
+const { SUCCESS, BAD_REQUEST, SERVER_ERROR } = require('../utils/responseCodes');
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.get('/', (req, res) => {
   }
 
   if (!groupId) {
-    res.status(badRequest).send(badRequest('Group ID missing from query'));
+    res.status(BAD_REQUEST).send(badRequest('Group ID missing from query'));
     return;
   }
 
@@ -40,13 +41,13 @@ router.get('/', (req, res) => {
       expenses.push({ who, owes, amount });
     });
 
-    res.status(200).send({
+    res.status(SUCCESS).send({
       groupName: response.name,
       lastUpdated: response.updated_at,
       expenses,
     });
   }).catch((err) => {
-    res.status(500).send(error(`Using group ID: ${groupId} gave following error: ${err.message}`));
+    res.status(SERVER_ERROR).send(error(`Using group ID: ${groupId} gave following error: ${err.message}`));
   });
 });
 
