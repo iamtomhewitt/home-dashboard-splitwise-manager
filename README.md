@@ -25,7 +25,7 @@ Here is the [Splitwise API](https://dev.splitwise.com/#introduction).
 ```json
 {
     "status": "💰 SERVER OK",
-    "version": "1.1.0",
+    "version": "<version>",
     "endpoints": [
         {
             "path": "/group",
