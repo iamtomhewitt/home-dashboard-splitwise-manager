@@ -15,24 +15,6 @@ describe('Group tests', () => {
     server.close();
   });
 
-  it('gives a response', (done) => {
-    request(server)
-      .get('/')
-      .expect(200)
-      .end((err, response) => {
-        if (err) {
-          return done(err);
-        }
-        const { version } = require('../package.json');
-        const status = '💰 SERVER OK';
-
-        assert.equal(response.body.version, version);
-        assert.equal(response.body.status, status);
-
-        return done();
-      });
-  });
-
   it('gives 200 when getting group info', (done) => {
     request(server)
       .get(`/group?groupId=${groupId}&apiKey=${process.env.API_KEY}`)
