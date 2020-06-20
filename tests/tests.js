@@ -3,69 +3,69 @@ const assert = require('assert');
 require('dotenv').config();
 
 describe('/ tests', () => {
-    let server;
-    const groupId = process.env.GROUP_ID;
+  let server;
+  const groupId = process.env.GROUP_ID;
 
-    before(() => {
-        server = require('../app').listen(3002);
-    });
+  before(() => {
+    server = require('../app').listen(3002);
+  });
 
-    after(() => {
-        server.close();
-    });
+  after(() => {
+    server.close();
+  });
 
-    it('/ gives 200', (done) => {
-        request(server)
-            .get('/')
-            .expect(200)
-            .end((err, response) => {
-                if (err) {
-                    return done(err);
-                }
-                const { version } = require('../package.json');
-                const status = '💰 SERVER OK';
+  it('/ gives 200', (done) => {
+    request(server)
+      .get('/')
+      .expect(200)
+      .end((err, response) => {
+        if (err) {
+          return done(err);
+        }
+        const { version } = require('../package.json');
+        const status = '💰 SERVER OK';
 
-                assert.equal(response.body.version, version);
-                assert.equal(response.body.status, status);
+        assert.equal(response.body.version, version);
+        assert.equal(response.body.status, status);
 
-                return done();
-            });
-    });
+        return done();
+      });
+  });
 
-    it('/group gives 200', (done) => {
-        request(server)
-            .get(`/group?groupId=${groupId}&apiKey=${process.env.API_KEY}`)
-            .expect(200)
-            .end((err, response) => {
-                if (err) {
-                    assert.fail(err.message);
-                    return done(err);
-                }
+  it('/group gives 200', (done) => {
+    request(server)
+      .get(`/group?groupId=${groupId}&apiKey=${process.env.API_KEY}`)
+      .expect(200)
+      .end((err, response) => {
+        if (err) {
+          assert.fail(err.message);
+          return done(err);
+        }
 
-                assert.notEqual(response.body, null);
-                assert.notEqual(response.body.groupName, null);
-                assert.notEqual(response.body.lastUpdated, null);
-                assert.notEqual(response.body.expenses, null);
+        assert.notEqual(response.body, null);
+        assert.notEqual(response.body.groupName, null);
+        assert.notEqual(response.body.lastUpdated, null);
+        assert.notEqual(response.body.expenses, null);
 
-                return done();
-            });
-    });
+        return done();
+      });
+  });
 
-    it('/group gives 400 when no parameters specified', (done) => {
-        request(server)
-            .get('/group')
-            .expect(400, done);
-    });
+  it('/group gives 400 when no parameters specified', (done) => {
+    request(server)
+      .get('/group')
+      .expect(400, done);
+  });
 
-    it('/group gives 401 when api key is incorrect', (done) => {
-        request(server)
-            .get('/group?apiKey=incorrect')
-            .expect(401, done);
-    });
+  it('/group gives 401 when api key is incorrect', (done) => {
+    request(server)
+      .get('/group?apiKey=incorrect')
+      .expect(401, done);
+  });
 
-    it('/group gives 500 when using an incorrect group id', (done) => {
-        request(server)
-            .get(`/group?groupId=12345678910&apiKey=${process.env.API_KEY}`)
-            .expect(500, done);
-    });
+  it('/group gives 500 when using an incorrect group id', (done) => {
+    request(server)
+      .get(`/group?groupId=12345678910&apiKey=${process.env.API_KEY}`)
+      .expect(500, done);
+  });
 });

@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/group', groupRoutes);
 
 app.get('/', (req, res) => {
-    res.status(successCode).send({ status: '💰 SERVER OK', version, endpoints: listEndpoints(app) });
+  res.status(successCode).send({ status: '💰 SERVER OK', version, endpoints: listEndpoints(app) });
 });
 
 const port = 3001;
