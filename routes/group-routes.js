@@ -1,57 +1,16 @@
 const express = require('express');
 const Splitwise = require('splitwise');
-require('dotenv').config();
+const { badRequest, error } = require('../utils/responses');
+const { checkApiKey } = require('../utils/utils');
 
 const router = express.Router();
 
-const success = 200;
-const badRequest = 400;
-const unauthorised = 401;
-const serverError = 500;
+require('dotenv').config();
 
 const sw = Splitwise({
   consumerKey: process.env.CONSUMER_KEY,
   consumerSecret: process.env.CONSUMER_SECRET,
 });
-
-function badRequestResponse(message) {
-  return {
-    status: badRequest,
-    message,
-  };
-}
-
-function errorResponse(message) {
-  return {
-    status: serverError,
-    message,
-  };
-}
-
-function unauthorisedResponse(message) {
-  return {
-    status: unauthorised,
-    message,
-  };
-}
-
-function checkApiKey(apiKey) {
-  if (!apiKey) {
-    return {
-      response: badRequestResponse('No API key specified'),
-      code: badRequest,
-    };
-  }
-
-  if (apiKey !== process.env.API_KEY) {
-    return {
-      response: unauthorisedResponse('API key is incorrect'),
-      code: unauthorised,
-    };
-  }
-
-  return null;
-}
 
 router.get('/', (req, res) => {
   const { groupId } = req.query;
@@ -64,7 +23,7 @@ router.get('/', (req, res) => {
   }
 
   if (!groupId) {
-    res.status(badRequest).send(badRequestResponse('Group ID missing from query'));
+    res.status(badRequest).send(badRequest('Group ID missing from query'));
     return;
   }
 
@@ -81,13 +40,13 @@ router.get('/', (req, res) => {
       expenses.push({ who, owes, amount });
     });
 
-    res.status(success).send({
+    res.status(200).send({
       groupName: response.name,
       lastUpdated: response.updated_at,
       expenses,
     });
   }).catch((err) => {
-    res.status(serverError).send(errorResponse(`Using group ID: ${groupId} gave following error: ${err.message}`));
+    res.status(500).send(error(`Using group ID: ${groupId} gave following error: ${err.message}`));
   });
 });
 
