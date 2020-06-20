@@ -14,8 +14,7 @@ const sw = Splitwise({
 });
 
 router.get('/', (req, res) => {
-  const { groupId } = req.query;
-  const { apiKey } = req.query;
+  const { groupId, apiKey } = req.query;
 
   const failedCheck = checkApiKey(apiKey);
   if (failedCheck) {
@@ -29,7 +28,7 @@ router.get('/', (req, res) => {
   }
 
   sw.getGroup({ id: groupId }).then((response) => {
-    const { members } = response;
+    const { members, name } = response;
     const debts = response.simplified_debts;
     const expenses = [];
 
@@ -37,12 +36,11 @@ router.get('/', (req, res) => {
       const who = members.find((x) => x.id === debt.from).first_name;
       const owes = members.find((x) => x.id === debt.to).first_name;
       const amount = `£${parseFloat(debt.amount).toFixed(2)}`;
-
       expenses.push({ who, owes, amount });
     });
 
     res.status(SUCCESS).send({
-      groupName: response.name,
+      groupName: name,
       lastUpdated: response.updated_at,
       expenses,
     });
