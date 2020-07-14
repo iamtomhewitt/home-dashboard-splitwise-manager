@@ -1,65 +1,65 @@
 {
-	"name": "home-dashboard-splitwise-manager",
-	"version": "1.1.2",
-	"description": "A small Node Express app for getting the \"I owe you\"'s to display on my home dashboard.",
-	"main": "app.js",
-	"scripts": {
-		"lint": "eslint --ignore-path .gitignore .",
-		"lint-fix": "npm run lint -- --fix",
-		"pretest": "eslint --ignore-path .gitignore .",
-		"release": "github-releaser",
-		"start": "node app.js",
-		"test": "mocha 'tests/**/*.js' --exit"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/iamtomhewitt/home-dashboard-splitwise-manager.git",
-		"apiUrl": "https://api.github.com/repos/iamtomhewitt/home-dashboard-splitwise-manager"
-	},
-	"author": "Tom Hewitt",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/iamtomhewitt/home-dashboard-splitwise-manager/issues"
-	},
-	"homepage": "https://github.com/iamtomhewitt/home-dashboard-splitwise-manager#readme",
-	"dependencies": {
-		"body-parser": "^1.19.0",
-		"dotenv": "^8.2.0",
-		"express": "^4.17.1",
-		"express-list-endpoints": "^4.0.1",
-		"github-releaser": "^1.1.2",
-		"mocha": "^7.2.0",
-		"request": "^2.88.2",
-		"splitwise": "^1.0.0",
-		"supertest": "^4.0.2"
-	},
-	"engines": {
-		"node": "12.14.1"
-	},
-	"devDependencies": {
-		"@commitlint/cli": "^8.3.5",
-		"@commitlint/config-conventional": "^8.3.4",
-		"babel-eslint": "^10.1.0",
-		"cz-conventional-changelog": "^2.1.0",
-		"eslint": "^6.8.0",
-		"eslint-config-airbnb": "^18.1.0",
-		"eslint-config-airbnb-base": "^14.1.0",
-		"eslint-config-node": "^4.1.0",
-		"eslint-plugin-import": "^2.22.0",
-		"eslint-plugin-jsx-a11y": "^6.3.1",
-		"eslint-plugin-react": "^7.20.3",
-		"eslint-plugin-react-hooks": "^2.5.1",
-		"husky": "^1.1.2",
-		"validate-commit-msg": "^2.14.0"
-	},
-	"husky": {
-		"hooks": {
-			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-		}
-	},
-	"config": {
-		"commitizen": {
-			"path": "./node_modules/cz-conventional-changelog"
-		}
-	}
+    "name": "home-dashboard-splitwise-manager",
+    "version": "1.1.3",
+    "description": "A small Node Express app for getting the \"I owe you\"'s to display on my home dashboard.",
+    "main": "app.js",
+    "scripts": {
+        "lint": "eslint --ignore-path .gitignore .",
+        "lint-fix": "npm run lint -- --fix",
+        "pretest": "eslint --ignore-path .gitignore .",
+        "release": "github-releaser",
+        "start": "node app.js",
+        "test": "mocha 'tests/**/*.js' --exit"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/iamtomhewitt/home-dashboard-splitwise-manager.git",
+        "apiUrl": "https://api.github.com/repos/iamtomhewitt/home-dashboard-splitwise-manager"
+    },
+    "author": "Tom Hewitt",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/iamtomhewitt/home-dashboard-splitwise-manager/issues"
+    },
+    "homepage": "https://github.com/iamtomhewitt/home-dashboard-splitwise-manager#readme",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-list-endpoints": "^4.0.1",
+        "github-releaser": "^1.1.2",
+        "mocha": "^7.2.0",
+        "request": "^2.88.2",
+        "splitwise": "^1.0.0",
+        "supertest": "^4.0.2"
+    },
+    "engines": {
+        "node": "12.14.1"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^8.3.5",
+        "@commitlint/config-conventional": "^8.3.4",
+        "babel-eslint": "^10.1.0",
+        "cz-conventional-changelog": "^2.1.0",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb": "^18.1.0",
+        "eslint-config-airbnb-base": "^14.1.0",
+        "eslint-config-node": "^4.1.0",
+        "eslint-plugin-import": "^2.22.0",
+        "eslint-plugin-jsx-a11y": "^6.3.1",
+        "eslint-plugin-react": "^7.20.3",
+        "eslint-plugin-react-hooks": "^2.5.1",
+        "husky": "^1.1.2",
+        "validate-commit-msg": "^2.14.0"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    }
 }
