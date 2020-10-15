@@ -1,15 +1,9 @@
-const Splitwise = require('splitwise');
-const config = require('../config');
+const splitwiseService = require('./splitwise');
 
 module.exports = {
   async getExpenses(groupId) {
-    const sw = Splitwise({
-      consumerKey: config.consumerKey,
-      consumerSecret: config.consumerSecret,
-    });
-
     try {
-      const data = await sw.getGroup({ id: groupId });
+      const data = await splitwiseService.getSplitwiseData(groupId);
       const {
         members, name: groupName, simplified_debts: debts, updated_at: lastUpdated,
       } = data;
