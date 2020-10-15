@@ -9,7 +9,7 @@
         "lint-fix": "npm run lint -- --fix",
         "pretest": "eslint --ignore-path .gitignore .",
         "release": "github-releaser",
-        "start": "node app.js",
+        "start": "node src/app.js",
         "test": "nyc --reporter=html mocha 'tests/**/*.js' --exit"
     },
     "repository": {
