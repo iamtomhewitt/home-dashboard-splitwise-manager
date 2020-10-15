@@ -20,6 +20,8 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
     - name: Upload code coverage
       run: npm run coverage && bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
       env:
