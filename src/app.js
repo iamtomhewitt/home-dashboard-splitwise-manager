@@ -7,7 +7,7 @@ async function startServer() {
 
   app.listen(process.env.PORT || 3001, (err) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       return;
     }
     console.log('Server ready!');

@@ -6,5 +6,5 @@ module.exports = {
   port: process.env.PORT,
   consumerKey: process.env.CONSUMER_KEY,
   consumerSecret: process.env.CONSUMER_SECRET,
-  apiKey: process.env.API_KEY
+  apiKey: process.env.API_KEY,
 };

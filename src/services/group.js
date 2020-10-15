@@ -2,14 +2,17 @@ const Splitwise = require('splitwise');
 const config = require('../config');
 
 module.exports = {
-  getExpenses(groupId) {
+  async getExpenses(groupId) {
     const sw = Splitwise({
       consumerKey: config.consumerKey,
       consumerSecret: config.consumerSecret,
     });
 
-    sw.getGroup({ id: groupId }).then((response) => {
-      const { members, name, simplified_debts: debts } = response;
+    try {
+      const data = await sw.getGroup({ id: groupId });
+      const {
+        members, name: groupName, simplified_debts: debts, updated_at: lastUpdated,
+      } = data;
       const expenses = [];
 
       debts.forEach((debt) => {
@@ -20,12 +23,12 @@ module.exports = {
       });
 
       return ({
-        groupName: name,
-        lastUpdated: response.updated_at,
+        groupName,
+        lastUpdated,
         expenses,
       });
-    }).catch((err) => {
+    } catch (err) {
       throw new Error(`Using group ID: ${groupId} gave following error: ${err.message}`);
-    });
-  }
-}
+    }
+  },
+};
