@@ -4,12 +4,13 @@
     "description": "A small Node Express app for getting the \"I owe you\"'s to display on my home dashboard.",
     "main": "app.js",
     "scripts": {
+        "coverage": "nyc report --reporter=text-lcov > coverage.lcov",
         "lint": "eslint --ignore-path .gitignore .",
         "lint-fix": "npm run lint -- --fix",
         "pretest": "eslint --ignore-path .gitignore .",
         "release": "github-releaser",
         "start": "node app.js",
-        "test": "mocha 'tests/**/*.js' --exit"
+        "test": "nyc --reporter=html mocha 'tests/**/*.js' --exit"
     },
     "repository": {
         "type": "git",
@@ -29,7 +30,9 @@
         "express-list-endpoints": "^4.0.1",
         "github-releaser": "^1.3.0",
         "mocha": "^7.2.0",
+        "nyc": "^15.1.0",
         "request": "^2.88.2",
+        "sinon": "^9.2.0",
         "splitwise": "^1.0.0",
         "supertest": "^4.0.2"
     },
