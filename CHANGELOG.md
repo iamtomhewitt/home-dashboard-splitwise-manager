@@ -1,3 +1,12 @@
+## 1.1.6 (15/10/2020) 
+
+
+### Issues in this release:
+
+* [#8](https://github.com/iamtomhewitt/home-dashboard-splitwise-manager/issues/8) - Restructure project
+
+
+
 ## 1.1.5 (06/09/2020) 
 
 
