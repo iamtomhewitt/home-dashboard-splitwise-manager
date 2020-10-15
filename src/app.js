@@ -1,23 +1,17 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const loaders = require('./loaders');
 
-const listEndpoints = require('express-list-endpoints');
+async function startServer() {
+  const app = express();
+  await loaders(app);
 
-const app = express();
-const groupRoutes = require('./routes/group-routes');
-const { version } = require('./package.json');
+  app.listen(process.env.PORT || 3001, (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log('Server ready!');
+  });
+}
 
-const port = 3001;
-require('dotenv').config();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/group', groupRoutes);
-
-app.get('/', (req, res) => {
-  res.status(200).send({ status: '💰 SERVER OK', version, endpoints: listEndpoints(app) });
-});
-
-app.listen(process.env.PORT || port, () => { });
-
-module.exports = app;
+startServer();
