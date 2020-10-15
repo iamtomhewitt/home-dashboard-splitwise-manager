@@ -38,7 +38,6 @@ describe('api/group', () => {
   });
 
   it('gives correct response when group id missing', (done) => {
-    console.log('KEY', config.apiKey);
     request(server)
       .get(`/group?apiKey=${config.apiKey}`)
       .expect(400)
