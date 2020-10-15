@@ -4,6 +4,7 @@ const express = require('express');
 const sinon = require('sinon');
 const loaders = require('../../src/loaders');
 const splitwiseService = require('../../src/services/splitwise');
+const config = require('../../src/config');
 
 describe('api/group', () => {
   let server;
@@ -37,9 +38,9 @@ describe('api/group', () => {
   });
 
   it('gives correct response when group id missing', (done) => {
-    console.log('KEY', process.env.API_KEY);
+    console.log('KEY', config.apiKey);
     request(server)
-      .get(`/group?apiKey=${process.env.API_KEY}`)
+      .get(`/group?apiKey=${config.apiKey}`)
       .expect(400)
       .end((err, response) => {
         if (err) {
@@ -73,7 +74,7 @@ describe('api/group', () => {
     });
 
     request(server)
-      .get(`/group?groupId=12345&apiKey=${process.env.API_KEY}`)
+      .get(`/group?groupId=12345&apiKey=${config.apiKey}`)
       .expect(200)
       .end((err, response) => {
         if (err) {
