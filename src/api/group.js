@@ -1,22 +1,48 @@
-const express = require('express');
-const auth = require('../services/auth');
+const Splitwise = require('splitwise');
 
-const route = express.Router();
-const service = require('../services/group');
+const { response } = require('../http/response');
 
-route.get('/', async (req, res) => {
-  const { groupId, apiKey } = req.query;
+module.exports.handler = async (event) => {
+  const { groupId } = event.queryStringParameters;
 
-  if (!auth.apiKeyValid(apiKey)) {
-    return res.status(401).json({ message: 'API key is invalid!' });
+  try {
+    if (!groupId) {
+      return response.badRequest({ message: 'Group ID missing from query!' });
+    }
+
+    const sw = Splitwise({
+      consumerKey: process.env.CONSUMER_KEY,
+      consumerSecret: process.env.CONSUMER_SECRET,
+    });
+
+    const data = await sw.getGroup({ id: groupId });
+    const expenses = [];
+    const {
+      members,
+      name: groupName,
+      simplified_debts: debts,
+      updated_at: lastUpdated,
+    } = data;
+
+    debts.forEach((debt) => {
+      const who = members.find((x) => x.id === debt.from).first_name;
+      const owes = members.find((x) => x.id === debt.to).first_name;
+      const amount = `£${parseFloat(debt.amount).toFixed(2)}`;
+      expenses.push({
+        who,
+        owes,
+        amount,
+      });
+    });
+
+    return response.ok({
+      groupName,
+      lastUpdated,
+      expenses,
+    });
+  } catch (err) {
+    return response.error({
+      message: err,
+    });
   }
-
-  if (!groupId) {
-    return res.status(400).json({ message: 'Group ID missing from query!' });
-  }
-
-  const { groupName, lastUpdated, expenses } = await service.getExpenses(groupId);
-  return res.json({ groupName, lastUpdated, expenses });
-});
-
-module.exports = route;
+};
