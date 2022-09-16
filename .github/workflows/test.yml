@@ -1,0 +1,48 @@
+name: NodeJS CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Using Node version ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm run coverage
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
+    
+    # Only run the coverage once
+    - if: ${{ matrix.node-version == '16.x' }}
+      name: Get coverage
+      run: |
+        REF=${{ github.ref }}
+        echo "github.ref: $REF"
+        IFS='/' read -ra PATHS <<< "$REF"
+        BRANCH_NAME="${PATHS[1]}_${PATHS[2]}"
+        echo $BRANCH_NAME
+        echo "BRANCH=$(echo ${BRANCH_NAME})" >> $GITHUB_ENV
+        echo "COVERAGE=$(node coverage.js)" >> $GITHUB_ENV
+    
+    - if: ${{ matrix.node-version == '16.x' }}
+      name: Create badge
+      uses: schneegans/dynamic-badges-action@v1.0.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: 70cdd8c15770b5fc44e7bb2b8fac0042
+        filename: home-dashboard-splitwise-manager__${{ env.BRANCH }}.json
+        label: coverage
+        message: ${{ env.COVERAGE }}
+        color: green
+        namedLogo: jest

@@ -1,0 +1,80 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true,
+		"jest": true
+	},
+	"extends": [
+		"airbnb",
+		"eslint:recommended"
+	],
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+	},
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"plugins": [
+		"react"
+	],
+	"rules": {
+		"guard-for-in": "off",
+		"indent": [
+			"error",
+			2,
+			{
+				"SwitchCase": 1
+			}
+		],
+		"linebreak-style": "off",
+		"no-await-in-loop": "off",
+		"no-console": "off",
+		"no-restricted-syntax": "off",
+		"no-sequences": "off",
+		"global-require": "off",
+		"max-len": "off",
+		"no-param-reassign": "off",
+		"no-return-assign": "off",
+		"object-curly-newline": [
+			2,
+			{
+				"multiline": true,
+				"consistent": true
+			}
+		],
+		"no-continue": "off",
+		"no-useless-escape": "off",
+		"keyword-spacing": [
+			"error",
+			{
+				"before": true,
+				"after": true
+			}
+		],
+		"object-property-newline": [
+			"error",
+			{
+				"allowAllPropertiesOnSameLine": false
+			}
+		],
+		"no-multiple-empty-lines": [
+			"error",
+			{
+				"max": 1
+			}
+		],
+		"prefer-destructuring": [
+			"error",
+			{
+				"object": true,
+				"array": false
+			}
+		]
+	},
+	"parser": "babel-eslint"
+}

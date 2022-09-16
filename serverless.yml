@@ -1,0 +1,28 @@
+service: home-dashboard-splitwise-manager
+
+frameworkVersion: '3'
+
+useDotenv: true
+
+provider:
+  lambdaHashingVersion: 20201221
+  name: aws
+  region: eu-west-1
+  runtime: nodejs16.x
+  stage: dev
+  timeout: 600
+
+functions:
+  splitwise-group:
+    name: home-dashboard-splitwise-manager-get-group
+    description: Gets group details for splitwise
+    handler: src/api/group.handler
+    logRetentionInDays: 7
+    environment:
+      CONSUMER_KEY: ${env:CONSUMER_KEY}
+      CONSUMER_SECRET: ${env:CONSUMER_SECRET}
+    events:
+      - http:
+          method: get
+          path: group
+          cors: true
