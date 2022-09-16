@@ -10,6 +10,8 @@ module.exports.handler = async (event) => {
       return response.badRequest({ message: 'Group ID missing from query!' });
     }
 
+    console.log('Supplied group id:', groupId);
+
     const sw = Splitwise({
       consumerKey: process.env.CONSUMER_KEY,
       consumerSecret: process.env.CONSUMER_SECRET,
@@ -35,13 +37,17 @@ module.exports.handler = async (event) => {
       });
     });
 
-    return response.ok({
+    const responseData = {
       groupName,
       lastUpdated,
       expenses,
-    });
+    };
+
+    console.log('Success!', responseData);
+
+    return response.ok(responseData);
   } catch (err) {
-    console.error(err);
+    console.error('An error occurred: ', err);
     return response.error({
       message: err.message,
     });
