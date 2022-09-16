@@ -43,7 +43,7 @@ module.exports.handler = async (event) => {
   } catch (err) {
     console.error(err);
     return response.error({
-      message: err,
+      message: err.message,
     });
   }
 };
