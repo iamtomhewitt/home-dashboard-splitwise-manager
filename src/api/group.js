@@ -3,9 +3,9 @@ const Splitwise = require('splitwise');
 const { response } = require('../http/response');
 
 module.exports.handler = async (event) => {
-  const { groupId } = event.queryStringParameters;
-
   try {
+    const { groupId } = event.queryStringParameters;
+
     if (!groupId) {
       return response.badRequest({ message: 'Group ID missing from query!' });
     }
@@ -41,6 +41,7 @@ module.exports.handler = async (event) => {
       expenses,
     });
   } catch (err) {
+    console.error(err);
     return response.error({
       message: err,
     });

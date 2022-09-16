@@ -2,27 +2,21 @@
     "name": "home-dashboard-splitwise-manager",
     "version": "1.1.6",
     "description": "A small Node Express app for getting the \"I owe you\"'s to display on my home dashboard.",
-    "main": "app.js",
+    "author": "Tom Hewitt",
+    "license": "ISC",
+    "homepage": "https://github.com/iamtomhewitt/home-dashboard-splitwise-manager#readme",
     "scripts": {
         "coverage": "nyc report --reporter=text-lcov > coverage.lcov",
         "lint": "eslint --ignore-path .gitignore .",
         "lint-fix": "npm run lint -- --fix",
-        "pretest": "eslint --ignore-path .gitignore .",
         "release": "github-releaser",
-        "start": "node src/app.js",
-        "test": "nyc --reporter=html mocha 'tests/**/*.js' --exit"
+        "test": "jest --coverage"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/iamtomhewitt/home-dashboard-splitwise-manager.git",
         "apiUrl": "https://api.github.com/repos/iamtomhewitt/home-dashboard-splitwise-manager"
     },
-    "author": "Tom Hewitt",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/iamtomhewitt/home-dashboard-splitwise-manager/issues"
-    },
-    "homepage": "https://github.com/iamtomhewitt/home-dashboard-splitwise-manager#readme",
     "dependencies": {
         "dotenv": "^8.2.0",
         "github-releaser": "1.6.1",
