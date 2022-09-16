@@ -1,3 +1,12 @@
+## 1.1.7 (16/09/2022) 
+
+
+### Issues in this release:
+
+* [#22](https://github.com/iamtomhewitt/home-dashboard-splitwise-manager/issues/22) - Move to AWS 
+
+
+
 ## 1.1.6 (15/10/2020) 
 
 
