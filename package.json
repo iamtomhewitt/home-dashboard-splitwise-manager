@@ -6,7 +6,7 @@
     "license": "ISC",
     "homepage": "https://github.com/iamtomhewitt/home-dashboard-splitwise-manager#readme",
     "scripts": {
-        "coverage": "nyc report --reporter=text-lcov > coverage.lcov",
+        "coverage": "npm test >> coverage.txt",
         "lint": "eslint --ignore-path .gitignore .",
         "lint-fix": "npm run lint -- --fix",
         "release": "github-releaser",
